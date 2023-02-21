@@ -8,13 +8,11 @@ class TimeOfDayTest {
 
 	@Test
 	void test() {
-		int ogpStartUur = 8;
-		int ogpStartMinuten = 0;
-		int ogpEindUur = 10;
-		int ogpEindMinuten = 30;
+		TimeOfDay ogpStart = new TimeOfDay(8, 0);
+		TimeOfDay ogpEind = new TimeOfDay(10, 30);
 		
-		int ogpStartMinutenSindsMiddernacht = ogpStartUur * 60 + ogpStartMinuten;
-		int ogpEindMinutenSindsMiddernacht = ogpEindUur * 60 + ogpEindMinuten;
+		int ogpStartMinutenSindsMiddernacht = ogpStart.getHours() * 60 + ogpStart.getMinutes();
+		int ogpEindMinutenSindsMiddernacht = ogpEind.getHours() * 60 + ogpEind.getMinutes();
 		int ogpDuur = ogpEindMinutenSindsMiddernacht - ogpStartMinutenSindsMiddernacht;
 		
 		assertEquals(150, ogpDuur);
