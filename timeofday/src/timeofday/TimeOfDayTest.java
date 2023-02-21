@@ -16,6 +16,14 @@ class TimeOfDayTest {
 		int ogpDuur = ogpEindMinutenSindsMiddernacht - ogpStartMinutenSindsMiddernacht;
 		
 		assertEquals(150, ogpDuur);
+		
+		ogpStart.setHours(9);
+		assertEquals(9, ogpStart.getHours());
+		assertEquals(0, ogpStart.getMinutes());
+		
+		ogpStart.setMinutes(30);
+		assertEquals(9, ogpStart.getHours());
+		assertEquals(30, ogpStart.getMinutes());
 	}
 
 }

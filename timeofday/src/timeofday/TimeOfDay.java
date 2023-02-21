@@ -11,6 +11,14 @@ package timeofday;
 //         en documenteren
 //
 // 2. Abstractie implementeren
+//
+//    2.1. Rauwe concretetoestandsruimte definiëren
+//         = de velden definiëren
+//    2.2. Geldige concretetoestandsruimte definiëren
+//         = de representatie-invarianten noteren
+//    2.3. Afbeelding concrete toestanden op abstracte toestanden definiëren
+//         = de getters implementeren
+//    2.4. De constructoren en mutatoren implementeren
 
 /**
  * Each instance of this class stores a time of day.
@@ -19,9 +27,16 @@ package timeofday;
  * @invar | 0 <= getMinutes() && getMinutes() <= 59
  */
 public class TimeOfDay {
+	
+	/**
+	 * @invar | 0 <= hours && hours <= 23
+	 * @invar | 0 <= minutes && minutes <= 59
+	 */
+	private int hours;
+	private int minutes;
 
-	public int getHours() { throw new RuntimeException("Not yet implemented"); }
-	public int getMinutes() { throw new RuntimeException("Not yet implemented"); }
+	public int getHours() { return hours; }
+	public int getMinutes() { return minutes; }
 	
 	/**
 	 * @throws IllegalArgumentException | !(0 <= hours && hours <= 23)
@@ -30,7 +45,14 @@ public class TimeOfDay {
 	 * @post | getHours() == hours
 	 * @post | getMinutes() == minutes
 	 */
-	public TimeOfDay(int hours, int minutes) { throw new RuntimeException("Not yet implemented"); }
+	public TimeOfDay(int hours, int minutes) {
+		if (hours < 0 || 23 < hours)
+			throw new IllegalArgumentException("`hours` out of range");
+		if (minutes < 0 || 59 < minutes)
+			throw new IllegalArgumentException("`minutes` out of range");
+		this.hours = hours;
+		this.minutes = minutes;
+	}
 	
 	/**
 	 * @pre | 0 <= hours && hours <= 23
@@ -38,7 +60,7 @@ public class TimeOfDay {
 	 * @post | getHours() == hours
 	 * @post | getMinutes() == old(getMinutes())
 	 */
-	public void setHours(int hours) { throw new RuntimeException("Not yet implemented"); }
+	public void setHours(int hours) { this.hours = hours; }
 	
 	/**
 	 * @pre | 0 <= minutes && minutes <= 59
@@ -46,6 +68,6 @@ public class TimeOfDay {
 	 * @post | getHours() == old(getHours())
 	 * @post | getMinutes() == minutes
 	 */
-	public void setMinutes(int minutes) { throw new RuntimeException("Not yet implemented"); }
+	public void setMinutes(int minutes) { this.minutes = minutes; }
 	
 }
