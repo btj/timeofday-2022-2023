@@ -29,14 +29,13 @@ package timeofday;
 public class TimeOfDay {
 	
 	/**
-	 * @invar | 0 <= hours && hours <= 23
-	 * @invar | 0 <= minutes && minutes <= 59
+	 * @invar | 0 <= minutesSinceMidnight
+	 * @invar | minutesSinceMidnight < 24 * 60
 	 */
-	private int hours;
-	private int minutes;
+	private int minutesSinceMidnight;
 
-	public int getHours() { return hours; }
-	public int getMinutes() { return minutes; }
+	public int getHours() { return minutesSinceMidnight / 60; }
+	public int getMinutes() { return minutesSinceMidnight % 60; }
 	
 	/**
 	 * @throws IllegalArgumentException | !(0 <= hours && hours <= 23)
@@ -50,8 +49,7 @@ public class TimeOfDay {
 			throw new IllegalArgumentException("`hours` out of range");
 		if (minutes < 0 || 59 < minutes)
 			throw new IllegalArgumentException("`minutes` out of range");
-		this.hours = hours;
-		this.minutes = minutes;
+		this.minutesSinceMidnight = hours * 60 + minutes;
 	}
 	
 	/**
@@ -60,7 +58,9 @@ public class TimeOfDay {
 	 * @post | getHours() == hours
 	 * @post | getMinutes() == old(getMinutes())
 	 */
-	public void setHours(int hours) { this.hours = hours; }
+	public void setHours(int hours) {
+		minutesSinceMidnight = hours * 60 + minutesSinceMidnight % 60;
+	}
 	
 	/**
 	 * @pre | 0 <= minutes && minutes <= 59
@@ -68,6 +68,8 @@ public class TimeOfDay {
 	 * @post | getHours() == old(getHours())
 	 * @post | getMinutes() == minutes
 	 */
-	public void setMinutes(int minutes) { this.minutes = minutes; }
+	public void setMinutes(int minutes) {
+		minutesSinceMidnight = 60 * (minutesSinceMidnight / 60) + minutes;
+	}
 	
 }
